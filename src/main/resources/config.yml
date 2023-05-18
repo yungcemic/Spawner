@@ -1,0 +1,13 @@
+spawner-list:
+  IRON_GOLEM:
+    displayName: "&eIron Golem Spawner"
+    lore:
+      - "Empty line 1"
+      - "Empty line 2"
+    material-list:
+      IRON_INGOT:
+        chance: 100
+        minDrop: 2
+        maxDrop: 5
+        price: 5.5
+    xpDrop: 1

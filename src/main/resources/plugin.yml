@@ -1,0 +1,7 @@
+name: Spawner
+main: me.yungcemic.spawner.SpawnerPlugin
+version: 1.0-SNAPSHOT
+api-version: 1.19
+commands:
+  spawner:
+    description: The main command of the Spawner Plugin.
