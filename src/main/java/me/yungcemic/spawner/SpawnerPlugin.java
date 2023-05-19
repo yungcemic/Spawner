@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;;
 
-public class SpawnerPlugin extends JavaPlugin {
+public final class SpawnerPlugin extends JavaPlugin {
 
     private File dataFile;
 

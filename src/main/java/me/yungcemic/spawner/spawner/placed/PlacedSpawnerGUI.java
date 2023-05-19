@@ -1,4 +1,4 @@
 package me.yungcemic.spawner.spawner.placed;
 
-public class PlacedSpawnerGUI {
+public final class PlacedSpawnerGUI {
 }

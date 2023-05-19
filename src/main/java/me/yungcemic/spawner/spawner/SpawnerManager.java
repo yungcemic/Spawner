@@ -26,7 +26,7 @@ public final class SpawnerManager {
             Material material = Material.matchMaterial(section.getString("material-list." + s).toUpperCase(Locale.ENGLISH));
             if (material == null) return;
             ConfigurationSection itemSection = section.getConfigurationSection("material-list." + s);
-            double chance = itemSection.getDouble("chacne");
+            double chance = itemSection.getDouble("chance");
             int minDrop = itemSection.getInt("minDrop");
             int maxDrop = itemSection.getInt("maxDrop");
             double price = itemSection.getDouble("price");
