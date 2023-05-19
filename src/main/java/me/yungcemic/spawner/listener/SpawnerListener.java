@@ -96,16 +96,13 @@ public final class SpawnerListener implements Listener {
         PersistentDataContainer container = e.getSpawner().getPersistentDataContainer();
         NamespacedKey key = SpawnerUtil.key(plugin);
         if (container.has(key, PersistentDataType.STRING)) {
-            Bukkit.broadcastMessage("#1");
             CreatureSpawner creatureSpawner = e.getSpawner();
             creatureSpawner.setDelay(-1);
             creatureSpawner.update();
             e.setCancelled(true);
             UUID uniqueId = UUID.fromString(container.get(key, PersistentDataType.STRING));
             placedSpawnerManager.getSpawner(uniqueId, true).ifPresent(spawner -> {
-                Bukkit.broadcastMessage("£");
                 Optional<Spawner> type = spawnerManager.getSpawner(spawner.getType());
-                Bukkit.broadcastMessage(type.get().toString());
                 type.ifPresent(spawnerType -> spawnerType.materials().forEach(spawnerMaterial -> {
                     Bukkit.broadcastMessage("#2");
                     int result = spawnerMaterial.drop(this.random);

@@ -22,7 +22,6 @@ public final class SpawnerManager {
         final List<String> lore = section.getStringList("lore");
         final List<SpawnerMaterial> materialList = new ArrayList<>();
         final int xpDrop = section.getInt("xpDrop");
-        System.out.println(section.getConfigurationSection("material-list").getCurrentPath());
         section.getConfigurationSection("material-list").getKeys(false).forEach(s -> {
             Material material = Material.matchMaterial(s);
             if (material == null) return;
