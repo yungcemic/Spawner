@@ -5,9 +5,11 @@ import java.util.*;
 public final class PlacedSpawnerManager {
 
     private final Map<UUID, PlacedSpawner> spawnerMap;
+    private final PlacedSpawnerSerializer serializer;
 
-    public PlacedSpawnerManager() {
+    public PlacedSpawnerManager(PlacedSpawnerSerializer serializer) {
         this.spawnerMap = new HashMap<>();
+        this.serializer = serializer;
     }
 
     public void addSpawner(PlacedSpawner spawner) {
@@ -22,8 +24,13 @@ public final class PlacedSpawnerManager {
         spawnerMap.remove(uniqueId);
     }
 
-    public Optional<PlacedSpawner> getSpawner(UUID uniqueId) {
-        return Optional.ofNullable(spawnerMap.get(uniqueId));
+    public Optional<PlacedSpawner> getSpawner(UUID uniqueId, boolean config) {
+        Optional<PlacedSpawner> placedSpawner = Optional.ofNullable(spawnerMap.get(uniqueId));
+        if (placedSpawner.isEmpty() && config) {
+            placedSpawner = serializer.deserialize(uniqueId);
+            placedSpawner.ifPresent(spawner -> spawnerMap.put(uniqueId, spawner));
+        }
+        return placedSpawner;
     }
 
     public Set<PlacedSpawner> getSpawners() {

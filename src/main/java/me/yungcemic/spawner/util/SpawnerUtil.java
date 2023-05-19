@@ -3,10 +3,12 @@ package me.yungcemic.spawner.util;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,10 +56,13 @@ public final class SpawnerUtil {
 
     public static EntityType setType(ItemStack item, EntityType type) {
         if (!item.getType().equals(Material.SPAWNER)) throw new IllegalArgumentException();
-        BlockStateMeta blockStateMeta = (BlockStateMeta) item.getItemMeta();
-        CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
+        ItemMeta itemMeta = item.getItemMeta();
+        BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
+        BlockState blockState = blockStateMeta.getBlockState();
+        CreatureSpawner creatureSpawner = (CreatureSpawner) blockState;
         creatureSpawner.setSpawnedType(type);
-        creatureSpawner.update();
+        blockStateMeta.setBlockState(blockState);
+        item.setItemMeta(itemMeta);
         return type;
     }
 

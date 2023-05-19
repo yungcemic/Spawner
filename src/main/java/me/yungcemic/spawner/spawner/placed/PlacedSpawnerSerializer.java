@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public final class PlacedSpawnerSerializer {
@@ -37,8 +38,9 @@ public final class PlacedSpawnerSerializer {
         }
     }
 
-    public PlacedSpawner deserialize(UUID uniqueId) {
+    public Optional<PlacedSpawner> deserialize(UUID uniqueId) {
         String spawnerPath = PATH + "." + uniqueId.toString();
+        if (!configuration.isSet(spawnerPath)) return Optional.empty();
         EntityType type = EntityType.valueOf(configuration.getString(spawnerPath + ".type"));
         Map<Material, Integer> storage = new EnumMap<>(Material.class);
         configuration.getConfigurationSection(spawnerPath + ".storage").getKeys(false).forEach(s -> {
@@ -50,7 +52,7 @@ public final class PlacedSpawnerSerializer {
         });
         int xpStorage = configuration.getInt(spawnerPath + ".storage.xp");
         int stackSize = configuration.getInt(spawnerPath + ".stack-size");
-        return new PlacedSpawner(uniqueId, type, storage, xpStorage, stackSize);
+        return Optional.of(new PlacedSpawner(uniqueId, type, storage, xpStorage, stackSize));
     }
 
     public void delete(UUID uniqueId) {
@@ -61,5 +63,9 @@ public final class PlacedSpawnerSerializer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public YamlConfiguration getConfiguration() {
+        return configuration;
     }
 }
